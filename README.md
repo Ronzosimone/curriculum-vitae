@@ -28,6 +28,13 @@ un altro percorso.
 
 Lo script avvisa se il CV supera una pagina.
 
+## Statistiche
+
+Il sito usa [Umami Cloud](https://umami.is) (piano gratuito, senza cookie): conta le visite
+e i click su PDF, email, GitHub e LinkedIn. Per sapere quale azienda apre il CV, manda un
+link con `?utm_source=`, per esempio
+`https://ronzosimone.github.io/curriculum-vitae/?utm_source=nomeazienda`.
+
 ## Contatti
 
 [LinkedIn](https://www.linkedin.com/in/simone-ronzoni-3bb3a3156) ·
