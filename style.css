@@ -1,0 +1,275 @@
+/* Simone Ronzoni — CV
+   Palette blueprint: carta grigio-azzurra, inchiostro navy, un solo accento ultramarino. */
+
+:root {
+  --carta:      #eef0f4;
+  --carta-alta: #f7f8fa;
+  --inchiostro: #101d2e;
+  --testo:      #2f3d4f;
+  --tenue:      #6b7a8d;
+  --linea:      #ccd3dd;
+  --accento:    #1d3fb5;
+  --misura:     68ch;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--carta);
+  color: var(--testo);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  font-feature-settings: "tnum" 1;
+}
+
+b { color: var(--inchiostro); font-weight: 600; }
+
+a { color: var(--accento); }
+
+a:focus-visible,
+.azione:focus-visible {
+  outline: 2px solid var(--accento);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  background: var(--carta-alta);
+  padding: .6rem 1rem;
+}
+
+/* ---------- Intestazione ---------- */
+
+.intestazione {
+  background: var(--carta-alta);
+  border-bottom: 1px solid var(--linea);
+  padding: clamp(3rem, 9vw, 6.5rem) 1.5rem clamp(2.5rem, 6vw, 4rem);
+}
+
+.intestazione-interno,
+.blocco,
+.chiusura-interno {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.disponibilita {
+  margin: 0 0 1.75rem;
+  font-size: .82rem;
+  letter-spacing: .04em;
+  color: var(--tenue);
+}
+
+.intestazione h1 {
+  margin: 0;
+  font-size: clamp(3.4rem, 13vw, 7.5rem);
+  line-height: .92;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  color: var(--inchiostro);
+}
+
+.ruolo {
+  max-width: 34ch;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.05rem, 2.4vw, 1.32rem);
+  line-height: 1.42;
+  color: var(--testo);
+}
+
+.collegamenti {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem 1.5rem;
+  margin-top: 2.25rem;
+  font-size: .95rem;
+}
+
+.collegamenti a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.azione {
+  background: var(--accento);
+  color: var(--carta-alta);
+  text-decoration: none;
+  padding: .6rem 1.15rem;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.azione:hover { background: var(--inchiostro); }
+
+/* ---------- Blocchi ---------- */
+
+.blocco {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 0 2.5rem;
+  padding: clamp(2.25rem, 5vw, 3.25rem) 1.5rem;
+  border-bottom: 1px solid var(--linea);
+}
+
+.blocco:last-of-type { border-bottom: 0; }
+
+main .blocco { max-width: 62rem; }
+
+.blocco h2 {
+  margin: .25rem 0 0;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--tenue);
+  letter-spacing: .01em;
+}
+
+.corpo { max-width: var(--misura); }
+.corpo > p { margin: 0 0 1rem; }
+.corpo > p:last-child { margin-bottom: 0; }
+
+.lead {
+  font-size: 1.12rem;
+  color: var(--inchiostro);
+}
+
+/* ---------- Stack ---------- */
+
+.stack {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, auto) 1fr;
+  gap: .55rem 1.75rem;
+  margin: 0;
+}
+
+.stack dt {
+  font-weight: 600;
+  color: var(--inchiostro);
+}
+
+.stack dd {
+  margin: 0;
+  color: var(--testo);
+}
+
+/* ---------- Tappe ---------- */
+
+.tappa {
+  padding-top: 1.9rem;
+  margin-top: 1.9rem;
+  border-top: 1px solid var(--linea);
+}
+
+.tappa:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+
+.periodo {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--tenue);
+  letter-spacing: .02em;
+}
+
+.tappa h3 {
+  margin: .35rem 0 .2rem;
+  font-size: 1.22rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--inchiostro);
+  letter-spacing: -0.012em;
+}
+
+.dove {
+  margin: 0;
+  color: var(--tenue);
+  font-size: .95rem;
+}
+
+.tappa ul {
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.tappa li {
+  margin-bottom: .6rem;
+  padding-left: .25rem;
+}
+
+.tappa li::marker { color: var(--accento); }
+
+/* ---------- Chiusura ---------- */
+
+.chiusura {
+  background: var(--inchiostro);
+  color: #b9c4d3;
+  padding: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+}
+
+.chiusura p {
+  max-width: 62rem;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.chiusura a { color: #ffffff; text-underline-offset: 4px; }
+
+.chiusura .minuta {
+  margin-top: 1rem;
+  font-size: .88rem;
+  color: #7f8ea3;
+}
+
+.chiusura .minuta a { color: #b9c4d3; }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 46rem) {
+  body { font-size: 16px; }
+
+  .blocco {
+    grid-template-columns: 1fr;
+    gap: .9rem;
+  }
+
+  .blocco h2 {
+    margin: 0;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .stack {
+    grid-template-columns: 1fr;
+    gap: .15rem;
+  }
+
+  .stack dd { margin-bottom: .9rem; }
+  .stack dd:last-child { margin-bottom: 0; }
+}
+
+/* ---------- Stampa ---------- */
+
+@media print {
+  .collegamenti,
+  .skip { display: none; }
+  body { background: #fff; font-size: 11pt; }
+  .chiusura { background: none; color: #000; }
+}
