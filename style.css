@@ -217,6 +217,7 @@ a { color: inherit; }
 
 .testata-cv {
   justify-content: center;
+  gap: .6rem;
   padding-inline: 1.75rem;
   background: var(--chiaro);
   color: var(--su-chiaro);
@@ -227,6 +228,17 @@ a { color: inherit; }
   transition: background-color .3s var(--curva);
 }
 .testata-cv:hover { background: var(--accento); }
+
+.testata-cv-icona {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 /* ---------- Hero ---------- */
 
@@ -804,8 +816,28 @@ a { color: inherit; }
 
   .testata { grid-template-columns: var(--testata) minmax(0, 1fr) auto; }
   .testata-nav { display: none; }
-  .testata-nome { padding-inline: 1rem; font-size: .95rem; }
-  .testata-cv { padding-inline: 1rem; font-size: .8rem; }
+  .testata-nome {
+    min-width: 0;
+    padding-inline: 1rem;
+    overflow: hidden;
+    font-size: .95rem;
+    text-overflow: ellipsis;
+  }
+  .testata-cv {
+    gap: .45rem;
+    padding-inline: 1.1rem;
+    font-size: .9rem;
+  }
+
+  /* Sul telefono il pulsante mostra solo "CV": "Scarica il" resta per gli screen reader */
+  .testata-cv-extra {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 
   /* Hero più compatto: nome, descrizione e pulsante stanno nella prima schermata */
   .eroe {
@@ -841,6 +873,12 @@ a { color: inherit; }
 
   .etichetta-altro { margin-top: 2.5rem; }
   .contatti-email-riga { margin-bottom: 2.5rem; }
+}
+
+/* Telefoni molto stretti (320px): il nome deve stare accanto al pulsante */
+@media (max-width: 22.4rem) {
+  .testata-nome { padding-inline: .8rem; font-size: .82rem; }
+  .testata-cv { padding-inline: .9rem; }
 }
 
 /* ---------- Movimento ridotto ---------- */

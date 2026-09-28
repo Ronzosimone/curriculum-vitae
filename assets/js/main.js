@@ -63,8 +63,13 @@
   function avviaIngresso() {
     var tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.2 } });
 
-    tl.from(".testata > *", { yPercent: -100, opacity: 0, stagger: 0.07, duration: 0.9 }, 0)
-      .from(".eroe-canvas", { opacity: 0, duration: 1.6 }, 0.1);
+    // Su desktop le celle dell'header scendono una alla volta; sul telefono l'header compare intero
+    if (window.matchMedia("(max-width: 46rem)").matches) {
+      tl.from(".testata", { opacity: 0, duration: 0.8, ease: "power2.out" }, 0);
+    } else {
+      tl.from(".testata > *", { yPercent: -100, opacity: 0, stagger: 0.07, duration: 0.9 }, 0);
+    }
+    tl.from(".eroe-canvas", { opacity: 0, duration: 1.6 }, 0.1);
 
     SplitText.create(".eroe-titolo", {
       type: "lines, chars",
