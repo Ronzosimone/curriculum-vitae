@@ -10,7 +10,8 @@
   var mousePreciso = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var librerie = window.gsap && window.ScrollTrigger && window.SplitText;
 
-  var oggetto = creaOggetto(document.querySelector(".eroe-canvas"));
+  var scena = creaScena(document.querySelector(".eroe-canvas"));
+  arricchisciPannelli();
 
   if (ridotto || !librerie) {
     radice.classList.add("pronto");
@@ -37,6 +38,7 @@
       avviaCursore();
       avviaMagnetici();
       avviaLucePannelli();
+      avviaInclinazionePannelli();
     }
     radice.classList.add("pronto");
     ScrollTrigger.refresh();
@@ -62,7 +64,7 @@
     var tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.2 } });
 
     tl.from(".testata > *", { yPercent: -100, opacity: 0, stagger: 0.07, duration: 0.9 }, 0)
-      .from(".eroe-canvas", { opacity: 0, scale: 0.9, duration: 2 }, 0.1);
+      .from(".eroe-canvas", { opacity: 0, duration: 1.6 }, 0.1);
 
     SplitText.create(".eroe-titolo", {
       type: "lines, chars",
@@ -82,7 +84,7 @@
       .from(".eroe-cta", { yPercent: 100, opacity: 0 }, 0.75);
   }
 
-  /* ---------- Hero allo scroll: l'oggetto si chiude in una sfera, il titolo sale ---------- */
+  /* ---------- Hero allo scroll: le particelle si disperdono, il titolo sale ---------- */
 
   function avviaHeroAlloScroll() {
     ScrollTrigger.create({
@@ -90,7 +92,7 @@
       start: "top top",
       end: "bottom top",
       scrub: true,
-      onUpdate: function (self) { oggetto.imposta(self.progress); }
+      onUpdate: function (self) { scena.imposta(self.progress); }
     });
 
     gsap.to(".eroe-titolo", {
@@ -173,7 +175,7 @@
         return Math.max(0, traccia.scrollWidth - finestra.clientWidth);
       }
 
-      gsap.to(traccia, {
+      var scorrimento = gsap.to(traccia, {
         x: function () { return -distanza(); },
         ease: "none",
         scrollTrigger: {
@@ -195,6 +197,23 @@
         duration: 1.1,
         ease: "expo.out",
         scrollTrigger: { trigger: sezione, start: "top 70%", once: true }
+      });
+
+      // Profondità: mentre la traccia scorre, icona di sfondo e tecnologie si muovono a velocità diverse
+      function lungoLaTraccia(pannello) {
+        return { trigger: pannello, containerAnimation: scorrimento, start: "left right", end: "right left", scrub: true };
+      }
+      gsap.utils.toArray(".pannello").forEach(function (pannello) {
+        var sfondo = pannello.querySelector(".pannello-sfondo");
+        var tech = pannello.querySelector(".pannello-tech");
+        if (sfondo) {
+          gsap.fromTo(sfondo,
+            { xPercent: -22, rotation: -14 },
+            { xPercent: 22, rotation: 14, ease: "none", scrollTrigger: lungoLaTraccia(pannello) });
+        }
+        if (tech) {
+          gsap.fromTo(tech, { x: 22 }, { x: -22, ease: "none", scrollTrigger: lungoLaTraccia(pannello) });
+        }
       });
 
       return function () { radice.classList.remove("orizzontale"); };
@@ -309,7 +328,19 @@
     });
   }
 
-  /* ---------- Luce che segue il mouse sui pannelli ---------- */
+  /* ---------- Pannelli: icona gigante di sfondo, luce e inclinazione col mouse ---------- */
+
+  function arricchisciPannelli() {
+    document.querySelectorAll(".pannello").forEach(function (pannello) {
+      var icona = pannello.querySelector(".pannello-icona");
+      if (!icona) return;
+      var copia = icona.cloneNode(true);
+      copia.setAttribute("class", "pannello-sfondo");
+      copia.removeAttribute("width");
+      copia.removeAttribute("height");
+      pannello.insertBefore(copia, pannello.firstChild);
+    });
+  }
 
   function avviaLucePannelli() {
     document.querySelectorAll(".pannello").forEach(function (pannello) {
@@ -321,39 +352,170 @@
     });
   }
 
-  /* ---------- Oggetto in fil di ferro (canvas 2D) ----------
-     Un toro "a corno" fatto di meridiani attorno a un nucleo: ruota piano, si orienta
-     verso il mouse e, mentre scorri oltre l'hero, si chiude in una sfera.
-     Sulla griglia tratteggiata una "torcia" segue il cursore. */
+  function avviaInclinazionePannelli() {
+    document.querySelectorAll(".pannello").forEach(function (pannello) {
+      gsap.set(pannello, { transformPerspective: 1000 });
+      var versoX = gsap.quickTo(pannello, "rotationX", { duration: 0.6, ease: "power3" });
+      var versoY = gsap.quickTo(pannello, "rotationY", { duration: 0.6, ease: "power3" });
 
-  function creaOggetto(canvas) {
+      pannello.addEventListener("pointermove", function (e) {
+        var r = pannello.getBoundingClientRect();
+        versoY(((e.clientX - r.left) / r.width - 0.5) * 8);
+        versoX(-((e.clientY - r.top) / r.height - 0.5) * 8);
+      });
+      pannello.addEventListener("pointerleave", function () {
+        versoX(0);
+        versoY(0);
+      });
+    });
+  }
+
+  /* ---------- Scena dell'hero: nuvola di particelle (canvas 2D) ----------
+     All'apertura le particelle partono dalla forma a toro e si ricompongono nelle iniziali "SR";
+     poi, a ciclo, diventano "</>" e "AI". Si orientano verso il mouse e si scansano attorno
+     al cursore; scorrendo oltre l'hero si disperdono. Sulla griglia una "torcia" segue il mouse. */
+
+  function creaScena(canvas) {
     var vuoto = { imposta: function () {} };
     if (!canvas || !canvas.getContext) return vuoto;
 
     var ctx = canvas.getContext("2d");
-    var CHIARO = "236, 236, 236";
-    var VIOLA = "183, 156, 255";
-    var MERIDIANI = 22;
-    var PASSI = 84;
+    var N = window.matchMedia("(max-width: 46rem)").matches ? 1600 : 3200;
+    var DURATA_MORPH = 1900;
+    var PAUSA = 4200;
+    var SFASAMENTO = 0.35;     // ritardo massimo di una particella rispetto alle altre nel morph
+    var RAGGIO_MOUSE = 110;
+    var SPINTA_MOUSE = 60;
+    var FUOCO = 1400;
+    var COLORI = [
+      "rgba(236, 236, 236, 0.28)",
+      "rgba(236, 236, 236, 0.55)",
+      "rgba(236, 236, 236, 0.8)",
+      "rgba(236, 236, 236, 1)",
+      "rgba(183, 156, 255, 0.95)"
+    ];
 
     var larghezza = 0;
     var altezza = 0;
-    var mouse = { x: 0.5, y: 0.5, px: -1000, py: -1000, dentro: false };
-    var rotazione = { x: -0.45, y: 0.4 };
-    var apertura = 1;
-    var aperturaObiettivo = 1;
+    var mouse = { x: 0.5, y: 0.5, px: -1e4, py: -1e4, dentro: false };
+    var rotazione = { x: -0.45, y: 0 };
+    var dispersione = 0;
+    var dispersioneObiettivo = 0;
     var raf = 0;
     var inVista = true;
 
-    function ridimensiona() {
-      var r = canvas.getBoundingClientRect();
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      larghezza = r.width;
-      altezza = r.height;
-      canvas.width = Math.round(larghezza * dpr);
-      canvas.height = Math.round(altezza * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (!raf) disegna(0);
+    var ritardo = new Float32Array(N);
+    var direzione = new Float32Array(N * 3);
+    var spostX = new Float32Array(N);
+    var spostY = new Float32Array(N);
+    var schermoX = new Float32Array(N);
+    var schermoY = new Float32Array(N);
+    var gruppo = new Uint8Array(N);
+    var i;
+
+    for (i = 0; i < N; i++) {
+      ritardo[i] = Math.random() * SFASAMENTO;
+      var u = Math.random() * 2 - 1;
+      var ang = Math.random() * Math.PI * 2;
+      var s = Math.sqrt(1 - u * u);
+      direzione[i * 3] = s * Math.cos(ang);
+      direzione[i * 3 + 1] = u;
+      direzione[i * 3 + 2] = s * Math.sin(ang);
+    }
+
+    // Forma 0: il toro (visibile finché il font non è pronto). Le altre si aggiungono dopo.
+    var forme = [toro()];
+    var da = 0;
+    var a = 0;
+    var inizio = 0;
+
+    function nuovaForma() {
+      return { x: new Float32Array(N), y: new Float32Array(N), z: new Float32Array(N), larga: 2, alta: 2, fattore: 1, inclinazione: 0 };
+    }
+
+    // Centra la forma e la porta in un riquadro da -1 a 1 sul lato più lungo
+    function normalizza(f) {
+      var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      for (i = 0; i < N; i++) {
+        if (f.x[i] < minX) minX = f.x[i];
+        if (f.x[i] > maxX) maxX = f.x[i];
+        if (f.y[i] < minY) minY = f.y[i];
+        if (f.y[i] > maxY) maxY = f.y[i];
+      }
+      var cx = (minX + maxX) / 2;
+      var cy = (minY + maxY) / 2;
+      var meta = Math.max(maxX - minX, maxY - minY) / 2 || 1;
+      for (i = 0; i < N; i++) {
+        f.x[i] = (f.x[i] - cx) / meta;
+        f.y[i] = (f.y[i] - cy) / meta;
+        f.z[i] = f.z[i] / meta;
+      }
+      f.larga = (maxX - minX) / meta;
+      f.alta = (maxY - minY) / meta;
+      return f;
+    }
+
+    function toro() {
+      var f = nuovaForma();
+      for (i = 0; i < N; i++) {
+        var teta = Math.random() * Math.PI * 2;
+        var fi = Math.random() * Math.PI * 2;
+        var r = 1 + Math.cos(teta);
+        f.x[i] = r * Math.cos(fi);
+        f.y[i] = Math.sin(teta);
+        f.z[i] = r * Math.sin(fi);
+      }
+      f.fattore = 0.75;
+      f.inclinazione = -0.45;
+      return normalizza(f);
+    }
+
+    // Disegna la parola su un canvas nascosto e ne campiona i pixel pieni
+    function parola(testo) {
+      var W = 1400, H = 520;
+      var foglio = document.createElement("canvas");
+      foglio.width = W;
+      foglio.height = H;
+      var c = foglio.getContext("2d");
+      var corpo = 380;
+      c.font = "600 " + corpo + "px Unbounded, sans-serif";
+      var misura = c.measureText(testo).width;
+      if (misura > W * 0.9) {
+        corpo *= (W * 0.9) / misura;
+        c.font = "600 " + corpo + "px Unbounded, sans-serif";
+      }
+      c.fillStyle = "#fff";
+      c.textAlign = "center";
+      c.textBaseline = "middle";
+      c.fillText(testo, W / 2, H / 2);
+
+      var dati = c.getImageData(0, 0, W, H).data;
+      var punti = [];
+      for (var y = 0; y < H; y += 3) {
+        for (var x = 0; x < W; x += 3) {
+          if (dati[(y * W + x) * 4 + 3] > 140) punti.push(x, y);
+        }
+      }
+      var quanti = punti.length / 2;
+      if (!quanti) return null;
+
+      var f = nuovaForma();
+      var spessore = corpo * 0.22;   // profondità delle lettere
+      for (i = 0; i < N; i++) {
+        var k = (Math.random() * quanti) | 0;
+        f.x[i] = punti[k * 2] + (Math.random() - 0.5) * 2.5;
+        f.y[i] = punti[k * 2 + 1] + (Math.random() - 0.5) * 2.5;
+        f.z[i] = (Math.random() - 0.5) * spessore;
+      }
+      return normalizza(f);
+    }
+
+    function scala(f) {
+      return Math.min(larghezza * 0.56 / f.larga, altezza * 0.62 / f.alta) * f.fattore;
+    }
+
+    function facilita(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
     function griglia(alfa) {
@@ -362,7 +524,7 @@
       var x0 = (larghezza % passoX) / 2;
       var y0 = (altezza % passoY) / 2;
       ctx.save();
-      ctx.strokeStyle = "rgba(" + CHIARO + "," + alfa + ")";
+      ctx.strokeStyle = "rgba(236, 236, 236, " + alfa + ")";
       ctx.lineWidth = 1;
       ctx.setLineDash([2, 6]);
       ctx.beginPath();
@@ -391,70 +553,96 @@
         ctx.restore();
       }
 
-      // L'oggetto si orienta dolcemente verso il mouse
-      var obiettivoX = -0.45 + (mouse.y - 0.5) * 0.8;
-      var obiettivoY = 0.4 + (mouse.x - 0.5) * 1.2;
+      // Avanzamento del morph e passaggio alla forma successiva (SR → </> → AI → SR…)
+      var t = Math.min(1, Math.max(0, (tempo - inizio) / DURATA_MORPH));
+      if (!ridotto && forme.length > 1 && tempo - inizio > DURATA_MORPH + PAUSA) {
+        da = a;
+        a = a >= forme.length - 1 ? 1 : a + 1;
+        inizio = tempo;
+        t = 0;
+      }
+      var tt = facilita(t);
+      var A = forme[da];
+      var B = forme[a];
+      var S = scala(A) + (scala(B) - scala(A)) * tt;
+      var inclinazione = A.inclinazione + (B.inclinazione - A.inclinazione) * tt;
+
+      var obiettivoX = inclinazione + (mouse.y - 0.5) * 0.5;
+      var obiettivoY = (mouse.x - 0.5) * 0.8 + Math.sin(tempo * 0.0004) * 0.12;
       rotazione.x += (obiettivoX - rotazione.x) * 0.05;
       rotazione.y += (obiettivoY - rotazione.y) * 0.05;
-      apertura += (aperturaObiettivo - apertura) * 0.08;
+      dispersione += (dispersioneObiettivo - dispersione) * 0.1;
 
-      // Inclinato, l'oggetto occupa in altezza circa 3,5 volte il raggio del tubo
-      var tubo = Math.min(larghezza * 0.16, altezza * 0.22);
-      var centro = tubo * apertura;
+      var cosX = Math.cos(rotazione.x), sinX = Math.sin(rotazione.x);
+      var cosY = Math.cos(rotazione.y), sinY = Math.sin(rotazione.y);
       var cx = larghezza / 2;
       var cy = altezza / 2;
-      var fuoco = tubo * 5;
-      var giro = tempo * 0.00013;
-      var cosX = Math.cos(rotazione.x);
-      var sinX = Math.sin(rotazione.x);
-      var cosY = Math.cos(rotazione.y + giro);
-      var sinY = Math.sin(rotazione.y + giro);
-      var raggioMax = centro + tubo;
+      var raggio2 = RAGGIO_MOUSE * RAGGIO_MOUSE;
+      var sparso = dispersione * 1.6;
+      var profondita = S * 0.6;
 
-      for (var i = 0; i < MERIDIANI; i++) {
-        var fi = (i / MERIDIANI) * Math.PI * 2;
-        var cosF = Math.cos(fi);
-        var sinF = Math.sin(fi);
-        var sommaZ = 0;
+      for (i = 0; i < N; i++) {
+        var l = (t - ritardo[i]) / (1 - SFASAMENTO);
+        l = facilita(l < 0 ? 0 : l > 1 ? 1 : l);
 
-        ctx.beginPath();
-        for (var k = 0; k <= PASSI; k++) {
-          var teta = (k / PASSI) * Math.PI * 2;
-          var r = centro + tubo * Math.cos(teta);
-          var x = r * cosF;
-          var y = tubo * Math.sin(teta);
-          var z = r * sinF;
+        var x = (A.x[i] + (B.x[i] - A.x[i]) * l + direzione[i * 3] * sparso) * S;
+        var y = (A.y[i] + (B.y[i] - A.y[i]) * l + direzione[i * 3 + 1] * sparso) * S;
+        var z = (A.z[i] + (B.z[i] - A.z[i]) * l + direzione[i * 3 + 2] * sparso) * S;
 
-          var x1 = x * cosY + z * sinY;
-          var z1 = -x * sinY + z * cosY;
-          var y2 = y * cosX - z1 * sinX;
-          var z2 = y * sinX + z1 * cosX;
+        var x1 = x * cosY + z * sinY;
+        var z1 = -x * sinY + z * cosY;
+        var y2 = y * cosX - z1 * sinX;
+        var z2 = y * sinX + z1 * cosX;
 
-          var scala = fuoco / (fuoco + z2);
-          var px = cx + x1 * scala;
-          var py = cy + y2 * scala;
-          if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-          sommaZ += z2;
+        var prospettiva = FUOCO / (FUOCO + z2);
+        var sx = cx + x1 * prospettiva;
+        var sy = cy + y2 * prospettiva;
+
+        // Le particelle vicine al cursore si scansano, poi tornano al loro posto
+        var versoX = 0, versoY = 0;
+        if (mouse.dentro) {
+          var dx = sx - mouse.px;
+          var dy = sy - mouse.py;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < raggio2) {
+            var d = Math.sqrt(d2) || 1;
+            var forza = (1 - d / RAGGIO_MOUSE) * SPINTA_MOUSE;
+            versoX = (dx / d) * forza;
+            versoY = (dy / d) * forza;
+          }
         }
+        spostX[i] += (versoX - spostX[i]) * 0.14;
+        spostY[i] += (versoY - spostY[i]) * 0.14;
+        schermoX[i] = sx + spostX[i];
+        schermoY[i] = sy + spostY[i];
 
-        // I meridiani in primo piano sono più luminosi di quelli dietro
-        var profondita = sommaZ / (PASSI + 1) / raggioMax;
-        var alfa = Math.max(0.12, Math.min(0.95, 0.5 - profondita * 0.45));
-        if (i === 0) {
-          ctx.strokeStyle = "rgba(" + VIOLA + ", 0.95)";
-          ctx.lineWidth = 1.6;
+        if (i % 13 === 0) {
+          gruppo[i] = 4;
         } else {
-          ctx.strokeStyle = "rgba(" + CHIARO + "," + alfa.toFixed(3) + ")";
-          ctx.lineWidth = 1;
+          var vicino = 0.5 - z2 / profondita;
+          gruppo[i] = vicino <= 0 ? 0 : vicino >= 1 ? 3 : (vicino * 4) | 0;
         }
-        ctx.stroke();
       }
 
-      // Nucleo
-      ctx.fillStyle = "rgb(" + CHIARO + ")";
-      ctx.beginPath();
-      ctx.arc(cx, cy, tubo * 0.13, 0, Math.PI * 2);
-      ctx.fill();
+      var lato = 1.6;
+      var meta = lato / 2;
+      for (var g = 0; g < COLORI.length; g++) {
+        ctx.fillStyle = COLORI[g];
+        for (i = 0; i < N; i++) {
+          if (gruppo[i] === g) ctx.fillRect(schermoX[i] - meta, schermoY[i] - meta, lato, lato);
+        }
+      }
+    }
+
+    function ridimensiona() {
+      var r = canvas.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      larghezza = r.width;
+      altezza = r.height;
+      canvas.width = Math.round(larghezza * dpr);
+      canvas.height = Math.round(altezza * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!raf) disegna(performance.now());
     }
 
     function ciclo(tempo) {
@@ -497,14 +685,35 @@
         mouse.x = e.clientX / window.innerWidth;
         mouse.y = e.clientY / window.innerHeight;
       }, { passive: true });
+      document.documentElement.addEventListener("pointerleave", function () { mouse.dentro = false; });
     }
+
+    // Le parole si possono campionare solo con il font caricato
+    var fontParole = document.fonts && document.fonts.load
+      ? document.fonts.load('600 100px "Unbounded"')
+      : Promise.resolve();
+    fontParole.catch(function () {}).then(function () {
+      ["SR", "</>", "AI"].forEach(function (testo) {
+        var f = parola(testo);
+        if (f) forme.push(f);
+      });
+      if (forme.length < 2) return;
+      if (ridotto) {
+        da = a = 1;
+        disegna(0);
+      } else {
+        da = 0;
+        a = 1;
+        inizio = performance.now();
+      }
+    });
 
     ridimensiona();
     avvia();
 
     return {
       // progresso 0 = inizio hero, 1 = hero uscito dallo schermo
-      imposta: function (progresso) { aperturaObiettivo = 1 - progresso; }
+      imposta: function (progresso) { dispersioneObiettivo = progresso; }
     };
   }
 })();
