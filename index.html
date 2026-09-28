@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,207 +8,282 @@
 <meta property="og:title" content="Simone Ronzoni — Software Engineer">
 <meta property="og:description" content="AI applicata, backend e API, cloud e app Android. Oltre 6 anni di software in produzione.">
 <meta property="og:type" content="profile">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0e2446">
-<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=4">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="style.css?v=5">
+<script>document.documentElement.className = "js";</script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="fff642de-449b-4c12-8211-c69fd789ce57" data-domains="ronzosimone.github.io"></script>
 </head>
 <body>
 
 <a class="skip" href="#contenuto">Vai al contenuto</a>
 
-<header class="testata">
-  <div class="pagina">
-    <h1 class="nome">Simone<br>Ronzoni</h1>
-    <p class="ruolo">Software Engineer</p>
-    <p class="sintesi">Oltre 6 anni di software in produzione: AI applicata, backend e API, cloud e app Android.</p>
-    <p class="dati">Levate (BG), Italia. Partita IVA attiva, aperto a nuove opportunità.</p>
-
-    <nav class="azioni" aria-label="Contatti">
-      <a class="bottone bottone-primario" href="assets/CV_Simone_Ronzoni.pdf" download target="_blank" data-umami-event="Scarica PDF">
-        <svg class="icona" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
-        Scarica il CV (PDF)
-      </a>
-      <a class="bottone" href="mailto:simone.ronzo@gmail.com" data-umami-event="Email">
-        <svg class="icona" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        simone.ronzo@gmail.com
-      </a>
-      <a class="bottone" href="https://github.com/Ronzosimone" target="_blank" rel="me noopener" data-umami-event="GitHub">
-        <svg class="icona" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-        GitHub
-      </a>
-      <a class="bottone" href="https://www.linkedin.com/in/simone-ronzoni-3bb3a3156" target="_blank" rel="me noopener" data-umami-event="LinkedIn">
-        <svg class="icona" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
-    </nav>
-  </div>
+<header class="barra">
+  <nav class="barra-interno" aria-label="Principale">
+    <a class="barra-nome" href="#inizio">Simone Ronzoni</a>
+    <ul class="barra-link">
+      <li><a href="#competenze">Competenze</a></li>
+      <li><a href="#esperienza">Esperienza</a></li>
+      <li><a href="#formazione">Formazione</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+    <a class="pillola pillola-piccola" href="assets/CV_Simone_Ronzoni.pdf" download target="_blank" data-umami-event="Scarica PDF">Scarica CV</a>
+  </nav>
 </header>
 
 <main id="contenuto">
 
-  <section class="stack" aria-labelledby="t-competenze">
-    <div class="pagina">
-      <h2 id="t-competenze" class="sr-only">Competenze</h2>
+  <!-- Hero -->
+  <section class="eroe" id="inizio" aria-labelledby="t-nome">
+    <div class="eroe-interno">
+      <h1 class="eroe-nome" id="t-nome">Simone Ronzoni</h1>
+      <p class="eroe-ruolo">Software Engineer</p>
+      <p class="eroe-sintesi">AI applicata, backend e API, cloud e app Android. Oltre 6 anni di software in produzione.</p>
+      <div class="azioni">
+        <a class="pillola" href="assets/CV_Simone_Ronzoni.pdf" download target="_blank" data-umami-event="Scarica PDF">Scarica il CV</a>
+        <a class="link-freccia" href="mailto:simone.ronzo@gmail.com" data-umami-event="Email">Scrivimi
+          <svg class="freccia" viewBox="0 0 10 16" width="8" height="13" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <p class="eroe-dati">Levate (BG), Italia. Partita IVA attiva, aperto a nuove opportunità.</p>
+    </div>
+  </section>
 
-      <ul class="schema">
-        <li class="nodo nodo-ai">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-            <h3>AI applicata</h3>
+  <!-- Profilo -->
+  <section class="sezione" id="profilo" aria-labelledby="t-profilo">
+    <div class="contenitore contenitore-stretto">
+      <h2 class="sr-only" id="t-profilo">Profilo</h2>
+      <p class="dichiarazione rivela">
+        Software Engineer laureato in Ingegneria Informatica.
+        <span>Mi occupo di backend in PHP (Laravel) e Python, progettazione di database e API, infrastruttura AWS con Docker e CI/CD e app Android native in Kotlin.</span>
+        Lavoro end-to-end su progetti commissionati da primari brand italiani,
+        <span>con responsabilità di coordinamento tecnico del team e ruolo di referente per il cliente sulle scelte implementative.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Competenze -->
+  <section class="sezione sezione-grigia" id="competenze" aria-labelledby="t-competenze">
+    <div class="contenitore">
+      <h2 class="titolo-sezione rivela" id="t-competenze">Competenze.</h2>
+
+      <div class="bento">
+        <article class="tessera tessera-ai rivela">
+          <svg class="icona-ai" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad-ai" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0894ff"/>
+                <stop offset=".34" stop-color="#c959dd"/>
+                <stop offset=".68" stop-color="#ff2e54"/>
+                <stop offset="1" stop-color="#ff9004"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad-ai)" d="M12 1.5l2.6 7.9L22.5 12l-7.9 2.6L12 22.5l-2.6-7.9L1.5 12l7.9-2.6z"/>
+          </svg>
+          <h3 class="testo-ai">AI applicata</h3>
+          <p class="tessera-testo-grande">Integrazione di LLM con LangGraph e MCP, pipeline RAG su knowledge base aziendali e fine-tuning di modelli di object detection in PyTorch, con backend Python in FastAPI.</p>
+          <ul class="chip">
+            <li>LangGraph</li>
+            <li>RAG</li>
+            <li>MCP (Model Context Protocol)</li>
+            <li>PyTorch</li>
+            <li>FastAPI</li>
+          </ul>
+        </article>
+
+        <article class="tessera tessera-numero rivela">
+          <p class="numero">6+</p>
+          <p class="tessera-testo">anni di software in produzione, dal 2019.</p>
+        </article>
+
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg>
+          <h3>Backend e API</h3>
+          <p class="tessera-testo">Laravel, FastAPI, Node.js, API REST.</p>
+        </article>
+
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          <h3>App e web</h3>
+          <p class="tessera-testo">Android nativo in Kotlin, Gradle, React. Pagamenti XPAY, Google Wallet e Smart Tap.</p>
+        </article>
+
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+          <h3>Cloud e DevOps</h3>
+          <p class="tessera-testo">AWS (EC2, S3, IAM, Textract), Docker, GitHub Actions con runner self-hosted, Linux/Debian, Nginx.</p>
+        </article>
+
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+          <h3>Dati</h3>
+          <p class="tessera-testo">MySQL, PostgreSQL, progettazione schema e migrazioni.</p>
+        </article>
+
+        <article class="tessera tessera-larga rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
+          <h3>Integrazioni</h3>
+          <p class="tessera-testo">WhatsApp Business API, Twilio e gateway SMS, webhook e sistemi di terze parti.</p>
+        </article>
+
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3>Team</h3>
+          <p class="tessera-testo">Coordinamento tecnico: stime, code review, architettura e referente per il cliente.</p>
+        </article>
+
+        <article class="tessera tessera-intera rivela">
+          <dl class="specifiche">
+            <div>
+              <dt>Linguaggi</dt>
+              <dd>Python, PHP, Java, Kotlin, JavaScript, SQL, Ruby</dd>
+            </div>
+            <div>
+              <dt>Metodo</dt>
+              <dd>Git, code review, Agile/Scrum, documentazione tecnica</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Esperienza -->
+  <section class="sezione" id="esperienza" aria-labelledby="t-esperienza">
+    <div class="contenitore">
+      <h2 class="titolo-sezione rivela" id="t-esperienza">Esperienza.</h2>
+
+      <article class="lavoro rivela">
+        <div class="lavoro-testa">
+          <p class="etichetta-attuale">Ruolo attuale</p>
+          <h3>Software Engineer</h3>
+          <p class="lavoro-azienda">Magnetic Media Network S.p.A.<br>Bechtle Group</p>
+          <p class="lavoro-dettagli"><time datetime="2019-12">Dic 2019</time> – oggi<br>Trezzo sull'Adda (MI)</p>
+        </div>
+        <ul class="lavoro-punti">
+          <li>Sviluppo componenti di <b>AI applicata</b> con backend Python in <b>FastAPI</b>: integrazione di LLM con <b>LangGraph</b> e <b>MCP</b>, pipeline RAG su knowledge base aziendali, fine-tuning di modelli di object detection in <b>PyTorch</b>.</li>
+          <li>Sviluppo e mantengo <b>CRM e gestionali in PHP (Laravel)</b>: modellazione del database, moduli di tracciamento produzione e consumi, API REST per client esterni.</li>
+          <li>Gestisco <b>infrastruttura AWS</b>, containerizzazione Docker e pipeline <b>CI/CD con GitHub Actions</b>, inclusi runner self-hosted per deploy automatici su macchine dietro VPN.</li>
+          <li>Realizzo <b>app Android native in Kotlin</b>, dai permessi al rilascio, con integrazioni di pagamento (XPAY) e badge digitali via Google Wallet / Smart Tap.</li>
+          <li>Integro servizi di terze parti (<b>WhatsApp Business API</b>, Twilio, gateway SMS italiani ed estrazione dati da documenti con <b>AWS Textract</b>), seguendo onboarding, compliance e troubleshooting.</li>
+          <li>Coordino il <b>team di sviluppo</b> sui progetti che seguo: assegnazione e follow-up delle attività, supporto tecnico ai colleghi, code review, stime e definizione dell'architettura.</li>
+        </ul>
+      </article>
+
+      <article class="lavoro rivela">
+        <div class="lavoro-testa">
+          <h3>Software Developer</h3>
+          <p class="lavoro-azienda">Morescreens S.r.l.</p>
+          <p class="lavoro-dettagli"><time datetime="2019-01">Gen 2019</time> – <time datetime="2019-05">Mag 2019</time><br>Kilometro Rosso, Bergamo</p>
+        </div>
+        <ul class="lavoro-punti">
+          <li>Applicazione web per la visualizzazione di <b>streaming video</b>, con backend in <b>Ruby</b>.</li>
+          <li>Modellazione e query su <b>PostgreSQL</b> per la generazione di statistiche di traffico CDN.</li>
+          <li>Configurazione e manutenzione di server <b>Linux Debian</b> per sviluppo e produzione.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Formazione e altre informazioni -->
+  <section class="sezione sezione-grigia" id="formazione" aria-labelledby="t-formazione">
+    <div class="contenitore">
+      <h2 class="titolo-sezione rivela" id="t-formazione">Formazione.</h2>
+
+      <div class="griglia-due">
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M22 10v6"/><path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <h3>Laurea Triennale in Ingegneria Informatica</h3>
+          <p class="tessera-testo">Università degli Studi di Bergamo</p>
+          <p class="periodo"><time datetime="2019-09">Set 2019</time> – <time datetime="2024-10">Ott 2024</time></p>
+        </article>
+        <article class="tessera rivela">
+          <svg class="icona" viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <h3>Diploma di Perito Informatico</h3>
+          <p class="tessera-testo">I.I.S. Marconi, Dalmine (BG)</p>
+          <p class="periodo"><time datetime="2014-09">Set 2014</time> – <time datetime="2019-07">Lug 2019</time></p>
+        </article>
+      </div>
+
+      <article class="tessera tessera-info rivela" aria-labelledby="t-altro">
+        <h3 id="t-altro">Altre informazioni</h3>
+        <dl class="specifiche specifiche-quattro">
+          <div>
+            <dt>Lingue</dt>
+            <dd>Italiano madrelingua, inglese intermedio (B1/B2)</dd>
           </div>
-          <p>LangGraph, RAG, MCP (Model Context Protocol), PyTorch per object detection</p>
+          <div>
+            <dt>Certificazioni</dt>
+            <dd>Corso BLSD, uso del defibrillatore semiautomatico (DAE)</dd>
+          </div>
+          <div>
+            <dt>Volontariato</dt>
+            <dd>Donatore periodico AVIS</dd>
+          </div>
+          <div>
+            <dt>Patente</dt>
+            <dd>B, automunito</dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contatti -->
+  <section class="contatti" id="contatti" aria-labelledby="t-contatti">
+    <div class="contenitore contenitore-stretto">
+      <h2 class="contatti-titolo rivela" id="t-contatti">Per collaborazioni o proposte di lavoro.</h2>
+      <p class="contatti-testo rivela">Scrivimi, oppure scarica il CV completo in PDF.</p>
+      <div class="azioni rivela">
+        <a class="pillola" href="mailto:simone.ronzo@gmail.com" data-umami-event="Email">simone.ronzo@gmail.com</a>
+        <a class="link-freccia" href="assets/CV_Simone_Ronzoni.pdf" download target="_blank" data-umami-event="Scarica PDF">Scarica il CV (PDF)
+          <svg class="freccia" viewBox="0 0 10 16" width="8" height="13" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <ul class="social rivela">
+        <li>
+          <a class="link-freccia" href="https://github.com/Ronzosimone" target="_blank" rel="me noopener" data-umami-event="GitHub">GitHub
+            <svg class="freccia" viewBox="0 0 10 16" width="8" height="13" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg>
+          </a>
         </li>
-        <li class="nodo">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg>
-            <h3>Backend e API</h3>
-          </div>
-          <p>Laravel, FastAPI, Node.js, API REST</p>
-        </li>
-        <li class="nodo">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-            <h3>App e web</h3>
-          </div>
-          <p>Android nativo in Kotlin, Gradle, React, pagamenti XPAY, Google Wallet e Smart Tap</p>
-        </li>
-        <li class="nodo">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-            <h3>Dati</h3>
-          </div>
-          <p>MySQL, PostgreSQL, progettazione schema e migrazioni</p>
-        </li>
-        <li class="nodo">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
-            <h3>Cloud e DevOps</h3>
-          </div>
-          <p>AWS (EC2, S3, IAM, Textract), Docker, GitHub Actions, runner self-hosted, Linux/Debian, Nginx</p>
-        </li>
-        <li class="nodo">
-          <div class="nodo-testa">
-            <svg class="icona" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
-            <h3>Integrazioni</h3>
-          </div>
-          <p>WhatsApp Business API, Twilio e gateway SMS, webhook e sistemi di terze parti</p>
+        <li>
+          <a class="link-freccia" href="https://www.linkedin.com/in/simone-ronzoni-3bb3a3156" target="_blank" rel="me noopener" data-umami-event="LinkedIn">LinkedIn
+            <svg class="freccia" viewBox="0 0 10 16" width="8" height="13" aria-hidden="true"><path d="M2 2l6 6-6 6"/></svg>
+          </a>
         </li>
       </ul>
-
-      <dl class="extra">
-        <dt>Linguaggi</dt>
-        <dd>Python, PHP, Java, Kotlin, JavaScript, SQL, Ruby</dd>
-        <dt>Metodo</dt>
-        <dd>Git, code review, Agile/Scrum, documentazione tecnica</dd>
-      </dl>
-    </div>
-  </section>
-
-  <section class="sezione" aria-labelledby="t-profilo">
-    <div class="pagina">
-      <h2 id="t-profilo">Profilo</h2>
-      <div class="corpo">
-        <p class="lead">
-          Software Engineer laureato in Ingegneria Informatica, con oltre 6 anni di esperienza
-          nello sviluppo di applicazioni web e mobile in produzione.
-        </p>
-        <p>
-          Mi occupo di backend in PHP (<b>Laravel</b>) e <b>Python</b>, progettazione di database e API,
-          infrastruttura <b>AWS</b> con Docker e CI/CD e app <b>Android</b> native in Kotlin. Lavoro
-          end-to-end su progetti commissionati da primari brand italiani, con responsabilità di
-          coordinamento tecnico del team e ruolo di referente per il cliente sulle scelte implementative.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sezione" aria-labelledby="t-esperienza">
-    <div class="pagina">
-      <h2 id="t-esperienza">Esperienza</h2>
-      <div class="voci">
-
-        <article class="voce voce-attuale">
-          <p class="quando"><time datetime="2019-12">Dic 2019</time> – oggi</p>
-          <div>
-            <h3>Software Engineer</h3>
-            <p class="dove">Magnetic Media Network S.p.A. (Bechtle Group), Trezzo sull'Adda (MI)</p>
-            <ul>
-              <li>Sviluppo componenti di <b>AI applicata</b> con backend Python in <b>FastAPI</b>: integrazione di LLM con <b>LangGraph</b> e <b>MCP</b>, pipeline RAG su knowledge base aziendali, fine-tuning di modelli di object detection in <b>PyTorch</b>.</li>
-              <li>Sviluppo e mantengo <b>CRM e gestionali in PHP (Laravel)</b>: modellazione del database, moduli di tracciamento produzione e consumi, API REST per client esterni.</li>
-              <li>Gestisco <b>infrastruttura AWS</b>, containerizzazione Docker e pipeline <b>CI/CD con GitHub Actions</b>, inclusi runner self-hosted per deploy automatici su macchine dietro VPN.</li>
-              <li>Realizzo <b>app Android native in Kotlin</b>, dai permessi al rilascio, con integrazioni di pagamento (XPAY) e badge digitali via Google Wallet / Smart Tap.</li>
-              <li>Integro servizi di terze parti (<b>WhatsApp Business API</b>, Twilio, gateway SMS italiani ed estrazione dati da documenti con <b>AWS Textract</b>), seguendo onboarding, compliance e troubleshooting.</li>
-              <li>Coordino il <b>team di sviluppo</b> sui progetti che seguo: assegnazione e follow-up delle attività, supporto tecnico ai colleghi, code review, stime e definizione dell'architettura.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="voce">
-          <p class="quando"><time datetime="2019-01">Gen 2019</time> – <time datetime="2019-05">Mag 2019</time></p>
-          <div>
-            <h3>Software Developer</h3>
-            <p class="dove">Morescreens S.r.l., Kilometro Rosso, Bergamo</p>
-            <ul>
-              <li>Applicazione web per la visualizzazione di <b>streaming video</b>, con backend in <b>Ruby</b>.</li>
-              <li>Modellazione e query su <b>PostgreSQL</b> per la generazione di statistiche di traffico CDN.</li>
-              <li>Configurazione e manutenzione di server <b>Linux Debian</b> per sviluppo e produzione.</li>
-            </ul>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="sezione" aria-labelledby="t-formazione">
-    <div class="pagina">
-      <h2 id="t-formazione">Formazione</h2>
-      <div class="voci">
-        <article class="voce">
-          <p class="quando"><time datetime="2019-09">Set 2019</time> – <time datetime="2024-10">Ott 2024</time></p>
-          <div>
-            <h3>Laurea Triennale in Ingegneria Informatica</h3>
-            <p class="dove">Università degli Studi di Bergamo</p>
-          </div>
-        </article>
-        <article class="voce">
-          <p class="quando"><time datetime="2014-09">Set 2014</time> – <time datetime="2019-07">Lug 2019</time></p>
-          <div>
-            <h3>Diploma di Perito Informatico</h3>
-            <p class="dove">I.I.S. Marconi, Dalmine (BG)</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="sezione" aria-labelledby="t-altro">
-    <div class="pagina">
-      <h2 id="t-altro">Altre informazioni</h2>
-      <dl class="info">
-        <dt>Lingue</dt>
-        <dd>Italiano madrelingua, inglese intermedio (B1/B2)</dd>
-        <dt>Certificazioni</dt>
-        <dd>Corso BLSD, uso del defibrillatore semiautomatico (DAE)</dd>
-        <dt>Volontariato</dt>
-        <dd>Donatore periodico AVIS</dd>
-        <dt>Patente</dt>
-        <dd>B, automunito</dd>
-      </dl>
     </div>
   </section>
 
 </main>
 
-<footer class="chiusura">
-  <div class="pagina">
-    <p class="invito">Per collaborazioni o proposte di lavoro, scrivimi:</p>
-    <a class="email" href="mailto:simone.ronzo@gmail.com" data-umami-event="Email">simone.ronzo@gmail.com</a>
-    <p class="firma"><a href="assets/CV_Simone_Ronzoni.pdf" download target="_blank" data-umami-event="Scarica PDF">Scarica il CV (PDF)</a>. Statistiche anonime con Umami, senza cookie.</p>
+<footer class="piede">
+  <div class="contenitore">
+    <p>Simone Ronzoni, Software Engineer. Levate (BG), Italia.</p>
+    <p>Statistiche anonime con Umami, senza cookie.</p>
   </div>
 </footer>
+
+<script>
+  // Comparsa delle sezioni allo scroll. Senza JS o con movimento ridotto è tutto già visibile.
+  (function () {
+    var elementi = document.querySelectorAll(".rivela");
+    var ridotto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (ridotto || !("IntersectionObserver" in window)) {
+      elementi.forEach(function (el) { el.classList.add("visibile"); });
+      return;
+    }
+    var osservatore = new IntersectionObserver(function (voci) {
+      voci.forEach(function (voce) {
+        if (voce.isIntersecting) {
+          voce.target.classList.add("visibile");
+          osservatore.unobserve(voce.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    elementi.forEach(function (el) { osservatore.observe(el); });
+  })();
+</script>
 
 </body>
 </html>
