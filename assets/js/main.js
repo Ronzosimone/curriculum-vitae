@@ -383,8 +383,8 @@
   }
 
   /* ---------- Scena dell'hero: nuvola di particelle (canvas 2D) ----------
-     All'apertura le particelle partono dalla forma a toro e si ricompongono nelle iniziali "SR";
-     poi, a ciclo, diventano "</>" e "AI". Si orientano verso il mouse e si scansano attorno
+     All'apertura le particelle partono dalla forma a toro e si ricompongono in "</>";
+     poi, a ciclo, diventano "{ }", ">_" e "AI". Si orientano verso il mouse e si scansano attorno
      al cursore; scorrendo oltre l'hero si disperdono. Sulla griglia una "torcia" segue il mouse. */
 
   function creaScena(canvas) {
@@ -567,7 +567,7 @@
         ctx.restore();
       }
 
-      // Avanzamento del morph e passaggio alla forma successiva (SR → </> → AI → SR…)
+      // Avanzamento del morph e passaggio alla forma successiva (</> → { } → >_ → AI → </>…)
       var t = Math.min(1, Math.max(0, (tempo - inizio) / DURATA_MORPH));
       if (!ridotto && forme.length > 1 && tempo - inizio > DURATA_MORPH + PAUSA) {
         da = a;
@@ -707,7 +707,7 @@
       ? document.fonts.load('600 100px "Unbounded"')
       : Promise.resolve();
     fontParole.catch(function () {}).then(function () {
-      ["SR", "</>", "AI"].forEach(function (testo) {
+      ["</>", "{ }", ">_", "AI"].forEach(function (testo) {
         var f = parola(testo);
         if (f) forme.push(f);
       });
