@@ -428,6 +428,8 @@ a { color: inherit; }
   color: var(--tenue);
 }
 
+.competenze-suggerimento { display: none; }
+
 .competenze-avanzamento {
   display: none;
   grid-column: 1 / -1;
@@ -757,20 +759,59 @@ a { color: inherit; }
 
 /* ---------- Mobile ---------- */
 
+/* Tablet e telefono: le competenze diventano un carosello da sfogliare col dito */
+@media (max-width: 59.99rem) {
+  .competenze-testa { grid-template-columns: minmax(0, 1fr); }
+
+  .competenze-suggerimento {
+    display: block;
+    margin: 0;
+    font-size: .9rem;
+    color: var(--accento);
+  }
+  .js .competenze-avanzamento { display: block; }
+
+  .competenze-finestra { margin-inline: calc(var(--spazio) * -1); }
+
+  .competenze-traccia {
+    display: flex;
+    gap: .75rem;
+    padding: 0 var(--spazio) .25rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--spazio);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .competenze-traccia::-webkit-scrollbar { display: none; }
+
+  .pannello {
+    flex: 0 0 min(44%, 24rem);
+    scroll-snap-align: start;
+  }
+}
+
 @media (max-width: 46rem) {
-  :root { --testata: 4rem; }
+  /* Sul telefono niente cornice: ogni pixel di larghezza serve */
+  :root {
+    --testata: 4rem;
+    --cornice: 0px;
+  }
 
   body { font-size: 16px; }
+  body::after { display: none; }
 
   .testata { grid-template-columns: var(--testata) minmax(0, 1fr) auto; }
   .testata-nav { display: none; }
   .testata-nome { padding-inline: 1rem; font-size: .95rem; }
   .testata-cv { padding-inline: 1rem; font-size: .8rem; }
 
+  /* Hero più compatto: nome, descrizione e pulsante stanno nella prima schermata */
   .eroe {
     height: auto;
     min-height: 0;
-    grid-template-rows: 55svh auto;
+    grid-template-rows: 40svh auto;
   }
 
   .eroe-basso,
@@ -779,12 +820,27 @@ a { color: inherit; }
   .celle-quattro,
   .piede { grid-template-columns: minmax(0, 1fr); }
 
-  .profilo { grid-template-columns: minmax(0, 1fr); }
-  .profilo .etichetta { padding-top: 0; }
+  .sezione,
+  .competenze { padding-block: 3.5rem; }
 
-  .competenze-testa { grid-template-columns: minmax(0, 1fr); }
+  .titolo-sezione { margin-bottom: 2rem; }
+
+  .profilo { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .profilo .etichetta { padding-top: 0; }
+  .profilo-testo { font-size: 1.3rem; line-height: 1.35; }
+
+  .pannello { flex-basis: 84%; }
+  .pannello-ai h3 { font-size: 1.5rem; }
+  .pannello-tech li {
+    padding: .4rem 0 .45rem;
+    font-size: 1.2rem;
+  }
+  .pannello-sfondo { stroke: rgb(255 255 255 / .05); }
 
   .tappa { grid-template-columns: minmax(0, 1fr); }
+
+  .etichetta-altro { margin-top: 2.5rem; }
+  .contatti-email-riga { margin-bottom: 2.5rem; }
 }
 
 /* ---------- Movimento ridotto ---------- */

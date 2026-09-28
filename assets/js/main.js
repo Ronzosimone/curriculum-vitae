@@ -126,7 +126,7 @@
       autoSplit: true,
       onSplit: function (self) {
         return gsap.fromTo(self.words,
-          { opacity: 0.16 },
+          { opacity: 0.22 },
           {
             opacity: 1,
             stagger: 0.1,
@@ -219,16 +219,28 @@
       return function () { radice.classList.remove("orizzontale"); };
     });
 
+    // Tablet e telefono: carosello nativo con scroll-snap; la barra segue lo scorrimento laterale
     mm.add("(max-width: 59.99rem)", function () {
-      gsap.utils.toArray(".pannello").forEach(function (pannello) {
-        gsap.from(pannello, {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: "expo.out",
-          scrollTrigger: { trigger: pannello, start: "top 90%", once: true }
-        });
+      var traccia = document.querySelector(".competenze-traccia");
+      var barra = document.querySelector(".competenze-avanzamento span");
+
+      function aggiorna() {
+        var massimo = traccia.scrollWidth - traccia.clientWidth;
+        gsap.set(barra, { scaleX: massimo > 0 ? traccia.scrollLeft / massimo : 1 });
+      }
+      traccia.addEventListener("scroll", aggiorna, { passive: true });
+      aggiorna();
+
+      gsap.from(".pannello", {
+        x: 60,
+        opacity: 0,
+        stagger: 0.08,
+        duration: 1,
+        ease: "expo.out",
+        scrollTrigger: { trigger: traccia, start: "top 88%", once: true }
       });
+
+      return function () { traccia.removeEventListener("scroll", aggiorna); };
     });
   }
 
@@ -511,7 +523,9 @@
     }
 
     function scala(f) {
-      return Math.min(larghezza * 0.56 / f.larga, altezza * 0.62 / f.alta) * f.fattore;
+      // Sugli schermi stretti la forma può occupare quasi tutta la larghezza
+      var quotaLarghezza = larghezza < 600 ? 0.84 : 0.56;
+      return Math.min(larghezza * quotaLarghezza / f.larga, altezza * 0.66 / f.alta) * f.fattore;
     }
 
     function facilita(t) {
