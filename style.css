@@ -812,6 +812,10 @@ a { color: inherit; }
   }
 
   body { font-size: 16px; }
+  /* Senza cornice i due strati fissi non disegnano nulla. Vanno tolti anche per Safari 26 su iPhone:
+     colora la status bar con lo sfondo del primo elemento fisso sul bordo alto e, trovando
+     body::before (trasparente) al posto dell'header, lascerebbe vedere la pagina che scorre */
+  body::before,
   body::after { display: none; }
 
   .testata { grid-template-columns: var(--testata) minmax(0, 1fr) auto; }
