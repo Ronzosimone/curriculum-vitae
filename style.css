@@ -215,17 +215,27 @@ a { color: inherit; }
 .testata-nav a:nth-child(-n+2) { border-bottom: 1px solid var(--linea); }
 .testata-nav a:hover { background: var(--testo); color: var(--su-chiaro); }
 
-/* Cambio lingua: porta all'altra versione della pagina (index.html ↔ en/index.html) */
+/* Cambio lingua: IT sopra ed EN sotto, su due righe come la navigazione. La lingua della pagina
+   è in viola; tutta la cella porta all'altra versione (index.html ↔ en/index.html) */
 .testata-lingua {
-  justify-content: center;
-  padding-inline: 1.5rem;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   font-family: var(--display);
-  font-size: .95rem;
+  font-size: .85rem;
   font-weight: 500;
   letter-spacing: .04em;
+}
+.testata-lingua span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1.5rem;
+  color: var(--tenue);
   transition: background-color .3s var(--curva), color .3s var(--curva);
 }
-.testata-lingua:hover { background: var(--testo); color: var(--su-chiaro); }
+.testata-lingua span:first-child { border-bottom: 1px solid var(--linea); }
+.testata-lingua .attiva { color: var(--accento); }
+.testata-lingua:hover span:not(.attiva) { background: var(--testo); color: var(--su-chiaro); }
 
 .testata-cv {
   justify-content: center;
@@ -778,7 +788,7 @@ a { color: inherit; }
 
 @media (max-width: 64rem) {
   .testata-nav a,
-  .testata-lingua { padding-inline: 1.1rem; }
+  .testata-lingua span { padding-inline: 1.1rem; }
   .celle-quattro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -858,10 +868,10 @@ a { color: inherit; }
   }
   /* Senza navigazione la lingua sta subito dopo il nome, che non ha bordo a destra */
   .testata-lingua {
-    padding-inline: .75rem;
     border-left: 1px solid var(--linea);
-    font-size: .85rem;
+    font-size: .78rem;
   }
+  .testata-lingua span { padding-inline: .75rem; }
   .testata-cv {
     gap: .45rem;
     padding-inline: 1rem;
@@ -907,7 +917,7 @@ a { color: inherit; }
 /* Telefoni stretti (360-384px): nome, lingua e pulsante devono stare nella stessa riga */
 @media (max-width: 24rem) {
   .testata-nome { padding-inline: .7rem; font-size: .86rem; }
-  .testata-lingua { padding-inline: .65rem; }
+  .testata-lingua span { padding-inline: .65rem; }
   .testata-cv { padding-inline: .85rem; }
 }
 
@@ -915,7 +925,7 @@ a { color: inherit; }
 @media (max-width: 22.4rem) {
   .testata { grid-template-columns: 3.25rem minmax(0, 1fr) auto auto; }
   .testata-nome { padding-inline: .55rem; font-size: .78rem; }
-  .testata-lingua { padding-inline: .5rem; }
+  .testata-lingua span { padding-inline: .5rem; }
   .testata-cv { padding-inline: .65rem; }
 }
 
