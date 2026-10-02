@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Simone Ronzoni — Software Engineer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+  @page {
+    size: A4;
+    margin: 11mm 14mm 7mm 14mm;
+  }
+
+  :root {
+    --ink: #14181f;
+    --body: #2c333d;
+    --muted: #646e7c;
+    --rule: #d7dce3;
+    --accent: #1f4d7a;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    font-family: "Carlito", "Calibri", "DejaVu Sans", sans-serif;
+    font-size: 9.15pt;
+    line-height: 1.28;
+    color: var(--body);
+  }
+
+  body { margin: 0; }
+
+  /* ---------- Intestazione ---------- */
+
+  header { margin-bottom: 7pt; }
+
+  h1 {
+    font-size: 23pt;
+    line-height: 1.02;
+    letter-spacing: -0.4pt;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .role {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 2pt 0 5pt;
+  }
+
+  .contatti {
+    font-size: 8.8pt;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .contatti a { color: var(--muted); text-decoration: none; }
+  .contatti span.sep { padding: 0 4pt; color: var(--rule); }
+
+  .stato {
+    margin-top: 3.5pt;
+    font-size: 8.6pt;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* ---------- Sezioni ---------- */
+
+  h2 {
+    font-size: 9.2pt;
+    font-weight: 700;
+    letter-spacing: 0.9pt;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 7.5pt 0 0;
+    padding-bottom: 2.5pt;
+    border-bottom: 0.7pt solid var(--rule);
+  }
+
+  section { break-inside: auto; }
+
+  .sommario {
+    margin: 6pt 0 0;
+    text-align: justify;
+  }
+
+  /* ---------- Esperienza ---------- */
+
+  .voce {
+    margin-top: 6pt;
+    break-inside: avoid;
+  }
+
+  .voce-testa {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+  }
+
+  .voce-titolo {
+    font-size: 10.4pt;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .voce-data {
+    font-size: 8.6pt;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .voce-azienda {
+    font-size: 9.4pt;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 1pt;
+  }
+
+  .voce-azienda .luogo {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  ul {
+    margin: 3.5pt 0 0;
+    padding-left: 12pt;
+  }
+
+  li {
+    margin-bottom: 1.8pt;
+    padding-left: 1.5pt;
+  }
+
+  li::marker { color: var(--accent); }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Competenze ---------- */
+
+  table.skills {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5pt;
+  }
+
+  table.skills th {
+    text-align: left;
+    vertical-align: top;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--ink);
+    white-space: nowrap;
+    padding: 1.5pt 10pt 1.5pt 0;
+    width: 27%;
+  }
+
+  table.skills td {
+    vertical-align: top;
+    padding: 1.5pt 0;
+  }
+
+  /* ---------- Formazione / extra ---------- */
+
+  .riga {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+    margin-top: 4.5pt;
+    break-inside: avoid;
+  }
+
+  .riga .titolo { font-weight: 700; color: var(--ink); }
+  .riga .sotto { color: var(--muted); }
+
+  .compatto { margin-top: 5pt; }
+  .compatto p { margin: 0 0 2.4pt; }
+
+  .privacy {
+    margin-top: 4pt;
+    font-size: 7.2pt;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Simone Ronzoni</h1>
+  <div class="role">Software Engineer</div>
+  <div class="contatti">
+    Levate (Bergamo), Italy
+    <!-- TELEFONO -->
+    <span class="sep">|</span> simone.ronzo@gmail.com<br>
+    github.com/Ronzosimone
+    <span class="sep">|</span> linkedin.com/in/simone-ronzoni-3bb3a3156
+  </div>
+  <div class="stato">Freelancer with an Italian VAT number &mdash; available for contract work</div>
+</header>
+
+<section>
+  <h2>Profile</h2>
+  <p class="sommario">
+    Software Engineer with a degree in Computer Engineering and over 6 years of experience building
+    web and mobile applications in production. I work on PHP (<strong>Laravel</strong>) and
+    <strong>Python</strong> backends, database and API design, <strong>AWS</strong> infrastructure with
+    Docker and CI/CD, and native <strong>Android</strong> apps in Kotlin. I handle projects end-to-end
+    for leading Italian brands, coordinating the development team on the technical side and acting as
+    the client's point of contact for implementation choices.
+  </p>
+</section>
+
+<section>
+  <h2>Technical skills</h2>
+  <table class="skills">
+    <tr>
+      <th>Applied AI</th>
+      <td>LangGraph, RAG, MCP (Model Context Protocol), PyTorch (object detection)</td>
+    </tr>
+    <tr>
+      <th>Languages</th>
+      <td>Python, PHP, Java, Kotlin, JavaScript, SQL, Ruby</td>
+    </tr>
+    <tr>
+      <th>Frameworks</th>
+      <td>Laravel, FastAPI, React, Node.js</td>
+    </tr>
+    <tr>
+      <th>Databases</th>
+      <td>MySQL, PostgreSQL, schema design and migrations</td>
+    </tr>
+    <tr>
+      <th>Cloud &amp; DevOps</th>
+      <td>AWS (EC2, S3, IAM, Textract), Docker, GitHub Actions, CI/CD, self-hosted runners, Linux, Nginx</td>
+    </tr>
+    <tr>
+      <th>Mobile</th>
+      <td>Native Android (Kotlin), Gradle, permission handling, payment integration (XPAY)</td>
+    </tr>
+    <tr>
+      <th>Integrations</th>
+      <td>REST APIs, WhatsApp Business API, Twilio / SMS gateways, Google Wallet &amp; Smart Tap</td>
+    </tr>
+    <tr>
+      <th>Practices</th>
+      <td>Git, code review, Agile/Scrum, technical documentation</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>Professional experience</h2>
+
+  <div class="voce">
+    <div class="voce-testa">
+      <div class="voce-titolo">Software Engineer</div>
+      <div class="voce-data">Dec 2019 &ndash; present</div>
+    </div>
+    <div class="voce-azienda">
+      Magnetic Media Network S.p.A. &ndash; Bechtle Group
+      <span class="luogo">&middot; Trezzo sull'Adda (Milan)</span>
+    </div>
+    <ul>
+      <li>Develop <strong>applied AI</strong> components with Python backends in <strong>FastAPI</strong>: LLM integration with <strong>LangGraph</strong> and <strong>MCP</strong>, RAG pipelines on company knowledge bases, fine-tuning of object detection models in <strong>PyTorch</strong>.</li>
+      <li>Develop and maintain <strong>CRMs and back-office systems in PHP (Laravel)</strong>: database modelling, production and consumption tracking modules, REST APIs for external clients.</li>
+      <li>Manage <strong>AWS infrastructure</strong>, Docker containerisation and <strong>CI/CD pipelines with GitHub Actions</strong>, including self-hosted runners for deployments to machines behind a VPN.</li>
+      <li>Build <strong>native Android apps in Kotlin</strong>, from permissions to release, with XPAY payments and Google Wallet / Smart Tap digital badges.</li>
+      <li>Integrate third-party services &mdash; <strong>WhatsApp Business API</strong>, Twilio, SMS gateways and document data extraction with <strong>AWS Textract</strong> &mdash; handling onboarding, compliance and troubleshooting.</li>
+      <li>Coordinate the <strong>development team</strong> on the projects I run: task assignment and follow-up, technical support for colleagues, code review, estimates and architecture design.</li>
+    </ul>
+  </div>
+
+  <div class="voce">
+    <div class="voce-testa">
+      <div class="voce-titolo">Software Developer</div>
+      <div class="voce-data">Jan 2019 &ndash; May 2019</div>
+    </div>
+    <div class="voce-azienda">
+      Morescreens S.r.l.
+      <span class="luogo">&middot; Kilometro Rosso, Bergamo</span>
+    </div>
+    <ul>
+      <li>Developed a web application for <strong>video streaming</strong> playback, with a <strong>Ruby</strong> backend.</li>
+      <li>Modelled and queried <strong>PostgreSQL</strong> data to generate CDN traffic statistics.</li>
+      <li>Set up and maintained <strong>Debian Linux</strong> servers for the development and production environments.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+
+  <div class="riga">
+    <div>
+      <div class="titolo">Bachelor's Degree in Computer Engineering</div>
+      <div class="sotto">University of Bergamo</div>
+    </div>
+    <div class="voce-data">Sep 2019 &ndash; Oct 2024</div>
+  </div>
+
+  <div class="riga">
+    <div>
+      <div class="titolo">Technical High School Diploma in Computer Science</div>
+      <div class="sotto">I.I.S. Marconi, Dalmine (Bergamo)</div>
+    </div>
+    <div class="voce-data">Sep 2014 &ndash; Jul 2019</div>
+  </div>
+</section>
+
+<section>
+  <h2>Certifications, languages and volunteering</h2>
+  <div class="compatto">
+    <p><strong>Certifications</strong> &mdash; BLSD course / use of automated external defibrillators (AED).</p>
+    <p><strong>Languages</strong> &mdash; Italian (native); English (intermediate, B1/B2). <strong>Volunteering</strong> &mdash; Regular blood donor with AVIS. <strong>Driving licence</strong> B, own car.</p>
+  </div>
+</section>
+
+<p class="privacy">I authorise the processing of the personal data contained in this CV pursuant to Regulation (EU) 2016/679 (GDPR) and Italian Legislative Decree 196/2003.</p>
+
+</body>
+</html>

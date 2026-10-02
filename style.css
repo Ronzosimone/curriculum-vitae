@@ -160,7 +160,7 @@ a { color: inherit; }
   right: var(--cornice);
   z-index: 50;
   display: grid;
-  grid-template-columns: var(--testata) auto 1fr auto auto;
+  grid-template-columns: var(--testata) auto 1fr auto auto auto;
   height: var(--testata);
   background: var(--fondo);
   border-bottom: 1px solid var(--linea);
@@ -214,6 +214,18 @@ a { color: inherit; }
 .testata-nav a:nth-child(odd)  { border-right: 1px solid var(--linea); }
 .testata-nav a:nth-child(-n+2) { border-bottom: 1px solid var(--linea); }
 .testata-nav a:hover { background: var(--testo); color: var(--su-chiaro); }
+
+/* Cambio lingua: porta all'altra versione della pagina (index.html ↔ en/index.html) */
+.testata-lingua {
+  justify-content: center;
+  padding-inline: 1.5rem;
+  font-family: var(--display);
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  transition: background-color .3s var(--curva), color .3s var(--curva);
+}
+.testata-lingua:hover { background: var(--testo); color: var(--su-chiaro); }
 
 .testata-cv {
   justify-content: center;
@@ -765,8 +777,22 @@ a { color: inherit; }
 /* ---------- Tablet ---------- */
 
 @media (max-width: 64rem) {
-  .testata-nav a { padding-inline: 1.1rem; }
+  .testata-nav a,
+  .testata-lingua { padding-inline: 1.1rem; }
   .celle-quattro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Tablet stretti e telefono: il pulsante mostra solo "CV" e lascia spazio a navigazione e lingua;
+   "Scarica il" resta per gli screen reader */
+@media (max-width: 54rem) {
+  .testata-cv-extra {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 /* ---------- Mobile ---------- */
@@ -818,29 +844,28 @@ a { color: inherit; }
   body::before,
   body::after { display: none; }
 
-  .testata { grid-template-columns: var(--testata) minmax(0, 1fr) auto; }
+  .testata { grid-template-columns: var(--testata) minmax(0, 1fr) auto auto; }
   .testata-nav { display: none; }
+  /* Blocco e non flex: text-overflow mette i puntini solo se il testo è diretto figlio di un blocco */
   .testata-nome {
+    display: block;
     min-width: 0;
-    padding-inline: 1rem;
+    padding-inline: .85rem;
     overflow: hidden;
     font-size: .95rem;
+    line-height: var(--testata);
     text-overflow: ellipsis;
+  }
+  /* Senza navigazione la lingua sta subito dopo il nome, che non ha bordo a destra */
+  .testata-lingua {
+    padding-inline: .75rem;
+    border-left: 1px solid var(--linea);
+    font-size: .85rem;
   }
   .testata-cv {
     gap: .45rem;
-    padding-inline: 1.1rem;
+    padding-inline: 1rem;
     font-size: .9rem;
-  }
-
-  /* Sul telefono il pulsante mostra solo "CV": "Scarica il" resta per gli screen reader */
-  .testata-cv-extra {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
   }
 
   /* Hero più compatto: nome, descrizione e pulsante stanno nella prima schermata */
@@ -879,10 +904,19 @@ a { color: inherit; }
   .contatti-email-riga { margin-bottom: 2.5rem; }
 }
 
-/* Telefoni molto stretti (320px): il nome deve stare accanto al pulsante */
+/* Telefoni stretti (360-384px): nome, lingua e pulsante devono stare nella stessa riga */
+@media (max-width: 24rem) {
+  .testata-nome { padding-inline: .7rem; font-size: .86rem; }
+  .testata-lingua { padding-inline: .65rem; }
+  .testata-cv { padding-inline: .85rem; }
+}
+
+/* Telefoni molto stretti (320px): anche la cella del logo si stringe */
 @media (max-width: 22.4rem) {
-  .testata-nome { padding-inline: .8rem; font-size: .82rem; }
-  .testata-cv { padding-inline: .9rem; }
+  .testata { grid-template-columns: 3.25rem minmax(0, 1fr) auto auto; }
+  .testata-nome { padding-inline: .55rem; font-size: .78rem; }
+  .testata-lingua { padding-inline: .5rem; }
+  .testata-cv { padding-inline: .65rem; }
 }
 
 /* ---------- Movimento ridotto ---------- */
